@@ -430,6 +430,7 @@
       "validateSave": "Validate & save"
     },
     "grid": {
+      "missing": "No grid meter configured. Without it, grid import and export can't be measured directly, which affects solar surplus charging and home battery control. Most solar installations have one.",
       "title": "Grid meter",
       "titleAdd": "Add Grid Meter",
       "titleEdit": "Edit Grid Meter"

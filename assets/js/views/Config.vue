@@ -133,6 +133,9 @@
 				</ConfigSection>
 
 				<ConfigSection v-bind="sectionProps('grid')">
+					<div v-if="gridMeterMissing" class="alert alert-warning my-4" role="alert">
+						{{ $t("config.grid.missing") }}
+					</div>
 					<div class="p-0 config-list box-pull-out">
 						<MeterCard
 							v-if="gridMeter"
@@ -939,6 +942,7 @@ export default defineComponent({
 					error:
 						(!!this.gridMeter && this.hasDeviceError("meter", this.gridMeter.name)) ||
 						this.curtailerDevices.some((c) => this.hasDeviceError("curtailer", c.name)),
+					warning: this.gridMeterMissing,
 				},
 				{
 					slug: "pv-battery",
@@ -1008,6 +1012,14 @@ export default defineComponent({
 		gridMeter() {
 			const name = this.site?.grid;
 			return this.getMetersByNames([name])[0];
+		},
+		gridMeterMissing(): boolean {
+			// only hint once the setup has started, an empty config needs no warning
+			const setupStarted =
+				this.pvMeters.length > 0 ||
+				this.batteryMeters.length > 0 ||
+				this.loadpoints.length > 0;
+			return !this.site?.grid && setupStarted;
 		},
 		pvMeters() {
 			const names = this.site?.pv;

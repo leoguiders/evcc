@@ -430,6 +430,7 @@
       "validateSave": "Überprüfen & speichern"
     },
     "grid": {
+      "missing": "Kein Netzzähler konfiguriert. Ohne ihn lassen sich Netzbezug und Einspeisung nicht direkt messen, was PV-Überschussladen und Hausbatteriesteuerung beeinträchtigt. Die meisten PV-Anlagen haben einen.",
       "title": "Netzzähler",
       "titleAdd": "Netzzähler hinzufügen",
       "titleEdit": "Netzzähler bearbeiten"

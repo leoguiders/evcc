@@ -39,8 +39,11 @@ test.describe("grid meter", async () => {
 
     await page.goto("/#/config");
 
+    const missingHint = page.getByRole("alert").filter({ hasText: "No grid meter configured" });
+
     await expect(page.getByTestId("grid")).toHaveCount(0);
     await expect(page.getByTestId("add-grid")).toBeVisible();
+    await expect(missingHint).toBeVisible();
 
     // create #1
     await page.getByTestId("add-grid").click();
@@ -58,6 +61,7 @@ test.describe("grid meter", async () => {
     await restart(CONFIG_ONE_LP);
     await expect(page.getByTestId("grid")).toContainText("Grid meter");
     await expect(page.getByTestId("grid").getByTestId("device-tag-power")).toContainText("5.0 kW");
+    await expect(missingHint).not.toBeVisible();
 
     // check in main ui
     await page.goto("/");
@@ -73,5 +77,6 @@ test.describe("grid meter", async () => {
 
     await expect(page.getByTestId("grid")).not.toBeVisible();
     await expect(page.getByTestId("add-grid")).toBeVisible();
+    await expect(missingHint).toBeVisible();
   });
 });
